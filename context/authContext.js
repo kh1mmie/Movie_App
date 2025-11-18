@@ -1,9 +1,10 @@
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { auth, db } from "../firebaesConfig";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { auth, db } from "../firebaseConfig";
 
 export const AuthContext = createContext();
+
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(undefined);
@@ -11,6 +12,7 @@ export const AuthContextProvider = ({ children }) => {
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, async (authUser) => {
             if (authUser) {
+                console.log(authUser)
                 const userData = await getUserData(authUser.uid);
                 setIsAuthenticated(true);
                 setUser({
@@ -22,7 +24,7 @@ export const AuthContextProvider = ({ children }) => {
                 setUser(null);
             }
             console.log('====================================');
-            console.log(user);
+            console.log("i ssuddd",user);
             console.log('====================================');
 
         });

@@ -1,11 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Video } from 'expo-av';
-import { useAuth } from '../context/authContext';
 import { BlurView } from 'expo-blur';
+// import { Video, ResizeMode } from 'expo-video';
+import { useEffect, useState } from 'react';
+import {
+    Dimensions,
+    Image,
+    Linking,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
+
 import config from '../config';
+import { useAuth } from '../context/authContext';
 const { width, height } = Dimensions.get('window');
 
 const DetailsAndPlay = () => {
@@ -54,7 +65,8 @@ const DetailsAndPlay = () => {
     };
 
     const handlePlay = async () => {
-        setIsPlaying(true);
+        // setIsPlaying(isPlaying)
+        setIsPlaying(!isPlaying)
     };
 
     const handleMyList = async () => {
@@ -144,7 +156,7 @@ const DetailsAndPlay = () => {
             <View style={styles.headerContainer}>
                 {isPlaying ? (
                     <Video
-                        source={{ uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+                        source={{ uri: 'https://youtu.be/OuUNVTQTbvM?si=NOV-bYnU5HFIFzxx' }}
                         rate={1.0}
                         volume={1.0}
                         isMuted={false}
@@ -153,6 +165,7 @@ const DetailsAndPlay = () => {
                         useNativeControls
                         style={styles.video}
                     />
+                    // <Text> hello i sus </Text>
                 ) : (
                     <Image
                         source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
